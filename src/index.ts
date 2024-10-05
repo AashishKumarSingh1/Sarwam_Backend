@@ -23,8 +23,9 @@ app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 // allowedCors();
 try{
-  const frontend=process.env.FRONTEND_URL;
-  app.use(cors({origin:frontend}))
+  // const frontend=process.env.FRONTEND_URL;
+  // app.use(cors({origin:frontend}))
+  app.use(cors());
 }catch(e){
   console.log("Cors issue : ",e);
 }
