@@ -69,6 +69,9 @@ export class AuthController {
           type:user.type,
           isVerified:user.isVerified,
           contractor:user.contractorName,
+          hostelName:user.hostelName,
+          college:user.college,
+          rollNo:user.rollNo
         },
         token: token,
       });
@@ -93,7 +96,7 @@ export class AuthController {
       collegeName,
       userType,
     } = req.body;
-// console.log(userType,'is type')
+console.log(userType,'is type')
     if (userType === 'Student') {
       try {
         const data = await HomePage.findOne({}, { totalStudentsAssociated: 1 });
@@ -134,7 +137,7 @@ export class AuthController {
         password: hashedPassword,
         confirmPassword,
         collegeName,
-        userType,
+        type:userType,
         college:collegeName
         // profileImage,
       });
@@ -288,7 +291,7 @@ export class AuthController {
     try {
       console.log('id is ',req.body)
       // const userId = req.body
-      // const user = await User.findById(userId).select('-password'); // Exclude password
+      // const user = await User.findById(userId).select('-password');
       // if (!user) {
       //   return res.status(404).json({ message: 'User not found' });
       // }

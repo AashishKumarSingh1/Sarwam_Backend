@@ -30,7 +30,7 @@ const UserSchema = new Schema<User>({
     college: { type: String },
     hostelName: { type: String }, 
     messContractorName: { type: String },
-    type: { type: String, enum: ['student', 'contractor', 'super']},
+    type: { type: String, enum: ['student', 'contractor', 'super'],default:'student'},
     contractorName: { type: String },
     workers: [{
         name: { type: String },

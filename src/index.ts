@@ -13,6 +13,7 @@ import crypto from 'crypto'
 import { auth } from "./route/auth.route";
 import { Server } from "socket.io";
 import { Socket } from "socket.io-client";
+import { StudentRouter } from "./route/student.route";
 const app = express();
 const server = http.createServer(app);
 const port = process.env.PORT;
@@ -53,54 +54,7 @@ app.get("/", (req, res) => {
 app.use("/image",image.getImageUrl());
 app.use("/home", home.home());
 app.use('/api/v1',auth.auth());
-
-function startSocketIOServer(port:number) {
-  const app = express();
-  const server = http.createServer(app);
-  const io = new Server(server, {
-      cors: {
-          origin: process.env.FRONTEND_URL,
-          methods: ["GET", "POST"],
-          credentials: true,
-      },
-      path: '/socket.io',
-  });
-  let activeUsers = 0;
-
-io.on('connection', (socket:any) => {
-  activeUsers++;
-  // console.log("a user is no",activeUsers)
-  io.emit('active-users', activeUsers);
-
-  socket.on('new-user-joined', (name:string) => {
-    socket.name = name;
-    // socket.broadcast.emit('user-joined', name);
-  });
-
-  socket.on('send', (data: { message: string; name: string }) => {
-    const { message, name } = data;
-    // console.log('message',message,'data',data)
-    socket.broadcast.emit('received', { message, name });
-  });
-  
-  socket.on('disconnect', () => {
-    if (socket.name) {
-      activeUsers--;
-      io.emit('active-users', activeUsers);
-      // socket.broadcast.emit('left', socket.name);
-    }
-  });
-});
-
-  
-
-  server.listen(port, () => {
-      console.log(`Listening on port ${port}`);
-  });
-}
-
-startSocketIOServer(7000);
-
+app.use("/api/student",StudentRouter.student());
 app.listen(port, () => {
   console.log(`server is listening to the port ${port}`);
 });

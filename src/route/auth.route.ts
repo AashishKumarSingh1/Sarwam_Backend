@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AuthController } from "../controller/auth.controller"; // Ensure this matches your file structure
+import { AuthController } from "../controller/auth.controller"; 
 import multer from 'multer'
 export class auth {
   static auth() {
@@ -15,7 +15,7 @@ export class auth {
 
     router
       .route("/signup")
-      .post(upload.single("profileImage"), AuthController.signUp);//write multer code 
+      .post(upload.single("profileImage"), AuthController.signUp);
     
     return router;
   }
