@@ -97,32 +97,32 @@ export class AuthController {
       userType,
     } = req.body;
 console.log(userType,'is type')
-    if (userType === 'Student') {
-      try {
-        const data = await HomePage.findOne({}, { totalStudentsAssociated: 1 });
-        if (data) {
-          data.totalStudentsAssociated += 1;
-          await data.save();
-        } else {
-          console.log('No document found.');
-        }
-      } catch (error) {
-        console.error('Error updating total students:', error);
-      }
-    }
-    else if (userType=='Contractor'){
-      try {
-        const data = await HomePage.findOne({}, { totalContractorsAssociated: 1 });
-        if (data) {
-          data.totalStudentsAssociated += 1;
-          await data.save();
-        } else {
-          console.log('No document found.');
-        }
-      } catch (error) {
-        console.error('Error updating total students:', error);
-      }
-    }
+    // if (userType === 'Student') {
+    //   try {
+    //     const data = await HomePage.findOne({}, { totalStudentsAssociated: 1 });
+    //     if (data) {
+    //       data.totalStudentsAssociated += 1;
+    //       await data.save();
+    //     } else {
+    //       console.log('No document found.');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error updating total students:', error);
+    //   }
+    // }
+    // else if (userType=='Contractor'){
+    //   try {
+    //     const data = await HomePage.findOne({}, { totalContractorsAssociated: 1 });
+    //     if (data) {
+    //       data.totalStudentsAssociated += 1;
+    //       await data.save();
+    //     } else {
+    //       console.log('No document found.');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error updating total students:', error);
+    //   }
+    // }
     
 
     // const profileImage = req.file;

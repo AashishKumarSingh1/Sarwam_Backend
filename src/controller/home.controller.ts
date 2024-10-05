@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { mailSender } from "../utils/mailSender";
 import HomePage from "../model/home.model";
+import User from "../model/user.model";
 export class contactController {
   static async contact(
     req: Request,
@@ -26,20 +27,13 @@ export class contactController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const data = await HomePage.findOne(
-        {},
-        {
-          totalContractorsAssociated: 1,
-          totalMessAssociated: 1,
-          totalNgoAssociated: 1,
-          totalStudentsAssociated: 1,
-        }
-      );
+      const contractorCount = await User.countDocuments({ type: 'Contractor' });
+      const studentCount = await User.countDocuments({ type: 'Student' });
       const response = {
-        totalContractorsAssociated: data?.totalContractorsAssociated || 0,
-        totalMessAssociated: data?.totalMessAssociated || 0,
-        totalNgoAssociated: data?.totalNgoAssociated || 0,
-        totalStudentsAssociated: data?.totalStudentsAssociated || 0,
+        totalContractorsAssociated: contractorCount || 0,
+        totalMessAssociated: 0,
+        totalNgoAssociated: 0,
+        totalStudentsAssociated: studentCount || 0,
       };
       res.status(200).json(response);
     } catch (e) {

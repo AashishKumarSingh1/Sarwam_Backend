@@ -1,5 +1,5 @@
 import { Schema, model, Model, Document, ObjectId } from "mongoose";
-type UserType = 'student' | 'contractor' | 'super';
+type UserType = 'Student' | 'Contractor' | 'Admin';
 interface Worker {
     name: string;
     role: string;
@@ -26,11 +26,11 @@ const UserSchema = new Schema<User>({
     password: { type: String, },
     name: { type: String },
     email:{type:String},
-    rollNo: {type:Number || String},
+    rollNo: {type:Number},
     college: { type: String },
     hostelName: { type: String }, 
     messContractorName: { type: String },
-    type: { type: String, enum: ['student', 'contractor', 'super'],default:'student'},
+    type: { type: String, enum: ['Student', 'Contractor', 'Admin'],default:'Student'},
     contractorName: { type: String },
     workers: [{
         name: { type: String },
